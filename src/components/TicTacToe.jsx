@@ -11,6 +11,11 @@ gameOverSound.volume = 0.2;
 const clickSound = new Audio("/sounds/click.wav");
 clickSound.volume = 0.5;
 
+const Player_X = "X";
+const Player_O = "O";
+
+
+
 const winningCombinations = [
   { combo: [0, 1, 2], strikeClass: "strike-row-1" },
   { combo: [3, 4, 5], strikeClass: "strike-row-2" },
@@ -29,7 +34,7 @@ function checkWinner(tiles, setStrikeClass, setGameState) {
     const tileValue3 = tiles[combo[2]];
 
     if (
-      tileValue1 != null &&
+      tileValue1 !== null &&
       tileValue1 === tileValue2 &&
       tileValue1 === tileValue3
     ) {
@@ -39,7 +44,9 @@ function checkWinner(tiles, setStrikeClass, setGameState) {
       } else {
         setGameState(GameState.playerOWins);
       }
+      return;
     }
+    
   }
   const areAllTilesFilledIn = tiles.every((tile) => tile != null);
   if (areAllTilesFilledIn) {
@@ -47,8 +54,7 @@ function checkWinner(tiles, setStrikeClass, setGameState) {
   }
 }
 
-const Player_X = "X";
-const Player_O = "O";
+
 function TicTacToe() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(Player_X);
